@@ -77,7 +77,7 @@ List<CountryModel> country = new List();
                   
                 ),
                 Text(
-                "Country",
+                "Popular Tours",
                   style: 
                     TextStyle(
                       fontSize: 19,
@@ -89,10 +89,12 @@ List<CountryModel> country = new List();
                   height: 16, 
                 ),
                 Container(
-                  height: 220,
+                 // margin: EdgeInsets.only(left: 8, top: 8),
+                  height: 240,
                   child: ListView.builder(
                     itemCount: country.length,
                     shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index){
                       return CountryListTitle(
@@ -100,6 +102,7 @@ List<CountryModel> country = new List();
                         countryName: country[index].countryName,
                         noOfTours: country[index].noOfTours,
                         rating: country[index].rating,
+                        imgUrl: country[index].imgUrl,
                       );
                     }),
                 ),
@@ -116,7 +119,14 @@ class CountryListTitle extends StatelessWidget {
   final String countryName;
   final int noOfTours;
   final double rating;
-  CountryListTitle({@required this.countryName,@required this.label,@required this.noOfTours,@required this.rating});
+  final String imgUrl;
+  CountryListTitle({
+      @required this.countryName,
+      @required this.label,
+      @required this.noOfTours,
+      @required this.rating,
+      @required this.imgUrl
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -125,10 +135,11 @@ class CountryListTitle extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: Image.network("https://images.pexels.com/photos/2098427/pexels-photo-2098427.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-            height: 200,
-            width: 150,
-            fit: BoxFit.cover),
+            child: Image.network(
+              imgUrl,
+              height: 220,
+              width: 150,
+              fit: BoxFit.cover),
           ),
           Container(
             height: 200,
